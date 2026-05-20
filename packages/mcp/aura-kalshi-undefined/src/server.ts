@@ -1,7 +1,7 @@
 
 // == AURA Artifact Envelope ==
 // Server: Kalshi
-// Generated at: 2026-05-20T07:36:48.410Z
+// Generated at: 2026-05-20T07:57:19.283Z
 // This file is signed by the AURA code generation system.
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
