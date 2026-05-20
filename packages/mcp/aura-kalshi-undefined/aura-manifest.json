@@ -1,0 +1,18 @@
+{
+  "source_spec_url": "https://api.kalshi.com/trade-api/v2/exchange/openapi.json",
+  "generated_at": "2026-05-20T07:36:48.410Z",
+  "package_name": "aura-kalshi-mcp",
+  "target_artifact": "mcp",
+  "governance_rules_applied": [],
+  "allowed_tools": [
+    "getMarkets",
+    "getPortfolio"
+  ],
+  "blocked_tools": [],
+  "secrets_required": [
+    "KALSHI_API_KEY"
+  ],
+  "build_status": "passed",
+  "test_status": "passed",
+  "risk_level": "mixed"
+}
