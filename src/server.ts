@@ -1,7 +1,7 @@
 
 // == AURA Artifact Envelope ==
-// Server: kalshi
-// Generated at: 2026-05-23T08:48:16.309Z
+// Server: Kalshi
+// Generated at: 2026-05-23T22:43:48.711Z
 // This file is signed by the AURA code generation system.
 import express from "express";
 import cors from "cors";
@@ -18,7 +18,7 @@ app.use(cors());
 app.use(express.json());
 
 const server = new Server({
-  name: "kalshi-server",
+  name: "Kalshi-server",
   version: "1.0.0"
 }, {
   capabilities: { tools: {} }
@@ -50,7 +50,6 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
 server.setRequestHandler(CallToolRequestSchema, async (request, extra) => {
     try {
         globalLimiter.checkLimit();
-        const headers = getAuthHeaders();
         const tool = tools.find((t: any) => t.name === request.params.name);
         if (!tool) throw new Error("Tool not found");
 
@@ -67,7 +66,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request, extra) => {
         
         const args = (request.params.arguments || {}) as Record<string, any>;
         for (const [key, val] of Object.entries(args)) {
-            const loc = tool.paramLocations[key];
+            const loc = (tool.paramLocations as Record<string, string>)[key];
             if (loc === "path") {
                 finalPath = finalPath.replace("{" + key + "}", encodeURIComponent(String(val)));
             } else if (loc === "query") {
@@ -78,7 +77,9 @@ server.setRequestHandler(CallToolRequestSchema, async (request, extra) => {
         }
         
         const qStr = queryParams.toString();
-        const fullUrl = BASE_URL + finalPath + (qStr ? "?" + qStr : "");
+        const fullPathWithQuery = finalPath + (qStr ? "?" + qStr : "");
+        const fullUrl = BASE_URL + fullPathWithQuery;
+        const headers = getAuthHeaders(tool.method.toUpperCase(), fullPathWithQuery);
         
         console.log(`[MCP] Calling ${tool.method} ${fullUrl}`);
         const res = await fetch(fullUrl, {
@@ -128,7 +129,7 @@ app.post("/message", async (req, res) => {
     await transport.handlePostMessage(req, res);
 });
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT ? parseInt(process.env.PORT as string, 10) : 8080;
 app.listen(PORT, "0.0.0.0", () => {
-    console.log(`kalshi MCP Server running on port ${PORT} (Cloud Run Ready)`);
+    console.log(`Kalshi MCP Server running on port ${PORT} (Cloud Run Ready)`);
 });
