@@ -1,6 +1,6 @@
-# kalshi MCP Server
+# Kalshi MCP Server
 
-This is an automatically generated Model Context Protocol (MCP) server for kalshi.
+This is an automatically generated Model Context Protocol (MCP) server for Kalshi.
 
 ## Features Included
 - **Auto-generated MCP wrapper** mapped from OpenAPI spec
@@ -19,7 +19,7 @@ npm run build
 
 ## Configuration
 
-Auth secrets are pulled from the environment. Ensure you configure your environment variables (e.g. `KALSHI_API_KEY`) before connecting.
+Auth secrets are pulled from the environment. Ensure you configure your environment variables (e.g. `KALSHI_API_KEY_ID`) before connecting.
 
 ## Running the Server
 
