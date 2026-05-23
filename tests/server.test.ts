@@ -1,14 +1,14 @@
 import { describe, it, expect } from 'vitest';
 import { getAuthHeaders } from "../src/auth.js";
 
-describe('kalshi MCP Server', () => {
+describe('Kalshi MCP Server', () => {
   it('should initialize and list tools', async () => {
     expect(true).toBe(true);
   });
 
   it('fails safely when API key is missing', () => {
-    delete process.env.KALSHI_API_KEY;
-    expect(() => getAuthHeaders()).toThrow(/environment variable is required/);
+    delete process.env.KALSHI_API_KEY_ID;
+    expect(() => getAuthHeaders("GET", "/")).toThrow(/environment variable is required/);
   });
 
   it('mutation guard blocks risky tools', () => {
