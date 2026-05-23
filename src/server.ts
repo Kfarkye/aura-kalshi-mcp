@@ -1,7 +1,7 @@
 
 // == AURA Artifact Envelope ==
-// Server: Kalshi
-// Generated at: 2026-05-23T08:31:46.821Z
+// Server: kalshi
+// Generated at: 2026-05-23T08:48:16.309Z
 // This file is signed by the AURA code generation system.
 import express from "express";
 import cors from "cors";
@@ -9,6 +9,7 @@ import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
 import { CallToolRequestSchema, ListToolsRequestSchema } from "@modelcontextprotocol/sdk/types.js";
 import { z } from "zod";
+import { zodToJsonSchema } from "zod-to-json-schema";
 import { getAuthHeaders } from "./auth.js";
 import { globalLimiter } from "./rate-limit.js";
 
@@ -17,7 +18,7 @@ app.use(cors());
 app.use(express.json());
 
 const server = new Server({
-  name: "Kalshi-server",
+  name: "kalshi-server",
   version: "1.0.0"
 }, {
   capabilities: { tools: {} }
@@ -33,26 +34,16 @@ const tools = [
     inputSchema: z.object({
       "limit": z.number().optional()
     })
-  },
-  {
-    name: "getPortfolio",
-    description: "Get user portfolio",
-    path: "/portfolio",
-    method: "GET",
-    paramLocations: {},
-    inputSchema: z.object({
-      
-    })
   }
 ];
 
-const BASE_URL = "";
+const BASE_URL = "https://api.kalshi.com/trade-api/v2/exchange";
 
 server.setRequestHandler(ListToolsRequestSchema, async () => {
     return { tools: tools.map(t => ({
         name: t.name,
         description: t.description,
-        inputSchema: { type: "object" } // Real implementation parses Zod to JSON Schema
+        inputSchema: zodToJsonSchema(t.inputSchema)
     }))};
 });
 
@@ -139,5 +130,5 @@ app.post("/message", async (req, res) => {
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Kalshi MCP Server running on port ${PORT} (Cloud Run Ready)`);
+    console.log(`kalshi MCP Server running on port ${PORT} (Cloud Run Ready)`);
 });
