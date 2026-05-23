@@ -1,6 +1,6 @@
-# Kalshi MCP Server
+# kalshi MCP Server
 
-This is an automatically generated Model Context Protocol (MCP) server for Kalshi.
+This is an automatically generated Model Context Protocol (MCP) server for kalshi.
 
 ## Features Included
 - **Auto-generated MCP wrapper** mapped from OpenAPI spec
