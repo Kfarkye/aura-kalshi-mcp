@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-// Auto-generated Zod schemas for kalshi API
+// Auto-generated Zod schemas for Kalshi API
 
 export const RateLimitConfigSchema = z.object({
   enabled: z.boolean().default(true),
